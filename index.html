@@ -1,0 +1,112 @@
+<!doctype html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <meta name="theme-color" content="#26352f">
+  <title>Reflex Field | Response Inhibition</title>
+  <link rel="stylesheet" href="styles.css">
+  <link rel="stylesheet" href="redesign.css">
+  <script type="importmap">
+    {
+      "imports": {
+        "three": "./node_modules/three/build/three.module.js"
+      }
+    }
+  </script>
+</head>
+<body>
+  <main class="app-shell">
+    <header class="topbar">
+      <div class="brand-lockup">
+        <div class="brand-mark" aria-hidden="true">RF</div>
+        <div>
+          <p class="eyebrow">Field assessment · response inhibition</p>
+          <h1>Reflex Field</h1>
+        </div>
+      </div>
+      <div class="status-pill"><span class="status-dot"></span><span id="connectionStatus">Ready to test</span></div>
+    </header>
+
+    <section class="hero-grid">
+      <div class="intro-copy">
+        <p class="eyebrow accent">Mountain trail · session 01</p>
+        <h2>Hold your nerve.</h2>
+        <p class="intro-text">Watch the boulder approach. Respond only when it enters the marked zone.</p>
+        <div class="instruction-row">
+          <span class="keycap">SPACE</span>
+          <span>Press when the boulder reaches the marked response zone.</span>
+        </div>
+      </div>
+
+    </section>
+
+    <section class="game-layout">
+      <div class="game-card">
+        <div class="game-toolbar">
+          <div>
+            <span class="round-label">Trial <strong id="trialValue">01</strong></span>
+            <span class="difficulty-label" id="difficultyValue">WARM UP</span>
+          </div>
+          <div class="speed-readout"><span class="pulse-dot"></span><span class="speed-label">BOULDER</span><span id="speedValue">Awaiting stone</span></div>
+        </div>
+
+        <div class="arena" id="arena" tabindex="0" aria-label="Game arena. Press space to duck.">
+          <div class="score-panel score-hud">
+            <div class="panel-label">Current score</div>
+            <div class="score-value" id="scoreValue">50</div>
+            <div class="score-health" role="progressbar" aria-label="Current score health" aria-valuemin="0" aria-valuemax="200" aria-valuenow="50"><span id="scoreHealthFill"></span></div>
+            <div class="score-feedback" id="scoreFeedback" aria-live="polite"></div>
+            <div class="score-meta"><span><strong id="roundValue">0</strong> rounds</span><span class="divider"></span><span>best <strong id="bestScore">50</strong></span></div>
+          </div>
+          <div class="arena-sky"></div>
+          <div class="cloud cloud-one"></div><div class="cloud cloud-two"></div>
+          <div class="mountain mountain-back"></div><div class="mountain mountain-front"></div>
+          <div class="lane-mark lane-one"></div><div class="lane-mark lane-two"></div><div class="lane-mark lane-three"></div>
+          <div class="warning-line"><span>RESPONSE ZONE</span></div>
+          <div class="stone" id="stone" aria-hidden="true"><span></span></div>
+          <div class="character" id="character" aria-hidden="true"><div class="head"></div><div class="body"></div><div class="leg leg-left"></div><div class="leg leg-right"></div></div>
+          <div class="impact-ring" id="impactRing"></div>
+          <div class="level-intro" id="levelIntro" aria-live="polite"><span>RESPONSE INHIBITION</span><strong>LEVEL 01</strong><em>10 TRIALS</em><small>WARM UP CHALLENGE</small></div>
+          <div class="arena-message" id="arenaMessage"><span class="message-kicker">LEVEL 01</span><strong>10 TRIALS</strong><small>Warm up challenge · get ready</small></div>
+          <div class="ducks-left"><span id="streakValue">0</span><small>safe streak</small></div>
+        </div>
+
+        <div class="control-bar">
+          <div class="control-main-row">
+            <button class="duck-button" id="duckButton" type="button" aria-label="Duck now, or press Space"><span class="button-key">SPACE</span> Duck now</button>
+          </div>
+          <div class="camera-controls-row">
+            <div class="view-controls" aria-label="3D camera controls">
+              <button type="button" data-camera-move="forward" title="Move camera forward">W</button>
+              <button type="button" data-camera-move="backward" title="Move camera backward">S</button>
+              <button type="button" data-camera-move="left" title="Move camera left">A</button>
+              <button type="button" data-camera-move="right" title="Move camera right">D</button>
+              <button type="button" id="immersiveButton" title="Enter immersive 3D view">VR</button>
+            </div>
+          </div>
+          <div class="reset-row">
+            <button class="text-button" id="resetButton" type="button">Reset session</button>
+          </div>
+        </div>
+      </div>
+
+      <aside class="insight-panel">
+        <div class="panel-heading"><div><p class="eyebrow">Live readout</p><h3>Behavior signals</h3></div><span class="signal-icon">◌</span></div>
+        <div class="metric-list">
+          <div class="metric-row"><div><span class="metric-name">Response inhibition</span><span class="metric-note">waiting for the cue</span></div><strong id="inhibitionMetric">—</strong></div>
+          <div class="metric-row"><div><span class="metric-name">Premature responding</span><span class="metric-note">early ducks</span></div><strong id="prematureMetric">0%</strong></div>
+          <div class="metric-row"><div><span class="metric-name">Response consistency</span><span class="metric-note">timing stability</span></div><strong id="consistencyMetric">—</strong></div>
+          <div class="metric-row"><div><span class="metric-name">Speed–accuracy</span><span class="metric-note">last response</span></div><strong id="speedAccuracyMetric">—</strong></div>
+          <div class="metric-row"><div><span class="metric-name">Risk taking</span><span class="metric-note">risk impacts / risk trials</span></div><strong id="riskMetric">0 · 0%</strong></div>
+        </div>
+        <div class="reward-strip"><span class="coin-icon">¢</span><div><strong id="coinValue">0</strong> field coins</div><small>10 safe trials unlock a bonus</small></div>
+        <div class="legend"><span><i class="legend-dot safe"></i> Safe response</span><span><i class="legend-dot hit"></i> Impact</span></div>
+      </aside>
+    </section>
+
+    <footer class="footer-note"><span>Session mode: adaptive random velocity</span><span>For research prototyping · not a clinical assessment</span></footer>
+  </main>
+  <script type="module" src="./game.js"></script>
+</body>
+</html>

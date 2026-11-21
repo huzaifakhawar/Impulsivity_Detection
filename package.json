@@ -1,0 +1,15 @@
+{
+  "name": "impulsivity_detection",
+  "version": "1.0.0",
+  "description": "A playable browser prototype for a response-inhibition and impulsivity assessment task.",
+  "main": "game.js",
+  "scripts": {
+    "test": "echo \"Error: no test specified\" && exit 1"
+  },
+  "keywords": [],
+  "author": "",
+  "license": "ISC",
+  "dependencies": {
+    "three": "^0.186.1"
+  }
+}
